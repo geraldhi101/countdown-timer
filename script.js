@@ -37,17 +37,21 @@ function timer(seconds) {
 function displayTimeLeft(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainderSeconds = seconds % 60;
-  const display = `${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
-  document.title = display;
+  const hour = Math.floor(minutes / 60);
+  const remainderMinutes = minutes % 60;
+  const minutesDisplay = `${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+  const hourDisplay = `${hour < 10 ? '0' : ''}${hour}:${remainderMinutes < 10 ? '0' : ''}${remainderMinutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`
+  display = minutes >= 60 ? document.title = hourDisplay : document.title = minutesDisplay;
   timerDisplay.textContent = display;
 }
 
 function displayEndTime(timestamp) {
   const end = new Date(timestamp);
-  const twentyFourHour = end.getHours();
+  const hour = end.getHours();
   // const twelveHour = hour > 12 ? hour - 12 : hour;
   const minutes = end.getMinutes();
-  endTime.textContent = `Selesai pukul ${twentyFourHour < 10 ? '0' : ''}${twentyFourHour}:${minutes < 10 ? '0' : ''}${minutes}`;
+  //const today = `${displayToday().days[date.getDay()]}, ${displayToday().date.getDate()} ${displayToday().months[date.getMonth(months)]} ${displayToday().date.getFullYear()}`;
+  endTime.textContent = `Selesai pukul ${hour < 10 ? '0' : ''}${hour}:${minutes < 10 ? '0' : ''}${minutes}`;
 }
 
 function startTimer() {
@@ -64,4 +68,3 @@ document.customForm.addEventListener('submit', function (e) {
   timer(mins * 60);
   this.reset();
 });
-
